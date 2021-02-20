@@ -7,7 +7,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import java.io.FileInputStream;
 import java.net.InetSocketAddress;
+import java.util.Properties;
 
 public class NettyServer{
 
@@ -24,6 +26,9 @@ public class NettyServer{
 
     public void start() throws Exception {
         Integer port = 9527;
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("D:\\shield_server\\src\\main\\resources\\application.properties"));
+        port = Integer.valueOf(properties.getProperty("server.port"));
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
                 .localAddress(new InetSocketAddress(port))
