@@ -1,6 +1,6 @@
 package org.heimdall.shield_server;
 
-import org.heimdall.shield_server.utils.PropertyUtil;
+import org.heimdall.shield_library.utility.PropertyUtil;
 
 import java.util.Properties;
 
@@ -22,11 +22,11 @@ public class ConfigManager {
     }
 
     public synchronized void loadConfig(){
-        properties = PropertyUtil.loadConfig("application.properties");
+        properties = PropertyUtil.loadConfig("d:\\application.properties");
     }
 
     public synchronized void unloadConfig(){
-        PropertyUtil.flushConfig(properties, "application.properties");
+        PropertyUtil.flushConfig(properties, "d:\\application.properties");
         properties.clear();
         properties = null;
     }
@@ -37,7 +37,7 @@ public class ConfigManager {
 
     public synchronized void setConfig(String key, String val){
         properties.setProperty(key, val);
-        PropertyUtil.flushConfig(properties, "application.properties");
+        PropertyUtil.flushConfig(properties, "d:\\application.properties");
     }
 
 }

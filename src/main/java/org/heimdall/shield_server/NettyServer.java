@@ -25,10 +25,12 @@ public class NettyServer{
     }
 
     public void start() throws Exception {
-        Integer port = 9527;
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("D:\\shield_server\\src\\main\\resources\\application.properties"));
-        port = Integer.valueOf(properties.getProperty("server.port"));
+        Integer port;
+        try{
+            port = Integer.valueOf(ConfigManager.getInstance().getConfig("server.port"));
+        }catch (Exception exception){
+            port = 9527;
+        }
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
                 .localAddress(new InetSocketAddress(port))
