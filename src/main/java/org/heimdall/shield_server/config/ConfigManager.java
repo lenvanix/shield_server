@@ -1,4 +1,4 @@
-package org.heimdall.shield_server;
+package org.heimdall.shield_server.config;
 
 import org.heimdall.shield_library.utility.PropertyUtil;
 

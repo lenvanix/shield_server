@@ -1,17 +1,18 @@
-package org.heimdall.shield_server;
+package org.heimdall.shield_server.network;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.heimdall.shield_server.network.NettyServerHandler;
 
-public class NettyInitializer extends ChannelInitializer<SocketChannel> {
+public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline channelPipeline = socketChannel.pipeline();
         channelPipeline.addLast("decoder", new StringDecoder());
         channelPipeline.addLast("encoder", new StringEncoder());
-        channelPipeline.addLast(new NettyHandler());
+        channelPipeline.addLast(new NettyServerHandler());
     }
 }

@@ -1,4 +1,4 @@
-package org.heimdall.shield_server;
+package org.heimdall.shield_server.network;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -6,12 +6,12 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.heimdall.shield_server.config.ConfigManager;
+import org.heimdall.shield_server.network.NettyServerInitializer;
 
-import java.io.FileInputStream;
 import java.net.InetSocketAddress;
-import java.util.Properties;
 
-public class NettyServer{
+public class NettyTransport {
 
     private EventLoopGroup bossGroup;
 
@@ -19,7 +19,7 @@ public class NettyServer{
 
     private ChannelFuture channelFuture;
 
-    public NettyServer(){
+    public NettyTransport(){
         bossGroup = new NioEventLoopGroup();
         workGroup = new NioEventLoopGroup();
     }
@@ -37,7 +37,7 @@ public class NettyServer{
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.TCP_NODELAY, true)
-                .childHandler(new NettyInitializer());
+                .childHandler(new NettyServerInitializer());
         channelFuture = bootstrap.bind().sync();
     }
 

@@ -1,4 +1,4 @@
-package org.heimdall.shield_server;
+package org.heimdall.shield_server.network;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -6,7 +6,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.net.SocketAddress;
 
 
-public class NettyHandler extends ChannelInboundHandlerAdapter {
+public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
