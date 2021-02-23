@@ -5,7 +5,6 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import org.heimdall.shield_server.network.NettyServerHandler;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override

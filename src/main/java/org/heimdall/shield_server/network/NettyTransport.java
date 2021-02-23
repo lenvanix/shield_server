@@ -7,11 +7,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.heimdall.shield_server.config.ConfigManager;
-import org.heimdall.shield_server.network.NettyServerInitializer;
 
 import java.net.InetSocketAddress;
 
-public class NettyTransport {
+public class NettyTransport implements Transport {
 
     private EventLoopGroup bossGroup;
 
