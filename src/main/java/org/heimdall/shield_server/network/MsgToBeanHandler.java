@@ -9,7 +9,7 @@ import org.heimdall.shield_server.message.MsgBean;
 import java.net.SocketAddress;
 
 
-public class MessageToBeanHandler extends SimpleChannelInboundHandler<Object> {
+public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -29,7 +29,7 @@ public class MessageToBeanHandler extends SimpleChannelInboundHandler<Object> {
 
     private boolean isValidMessage(byte[] bytes){
         if(bytes.length < 40){
-            //协议格式：长度，4字节 | 魔数，2字节 | 版本，1字节 | 上下行，1字节 | 唯一标识符，32字节 | 消息体，0 ~ (3M - 40) 字节
+            //协议格式：长度，4字节 | 魔数，2字节 | 业务码，2字节 | 唯一标识符，32字节 | 消息体，0 ~ (3M - 40) 字节
             return false;
         }
         if(bytes[4] != 0x25 || bytes[5] != 0x37){

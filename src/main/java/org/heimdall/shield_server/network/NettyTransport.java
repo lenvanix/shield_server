@@ -36,7 +36,7 @@ public class NettyTransport implements Transport {
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.TCP_NODELAY, true)
-                .childHandler(new NettyServerInitializer());
+                .childHandler(new ServerChannelInitializer());
         channelFuture = bootstrap.bind().sync();
     }
 

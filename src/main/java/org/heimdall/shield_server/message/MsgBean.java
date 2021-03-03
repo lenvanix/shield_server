@@ -8,9 +8,7 @@ public class MsgBean {
 
     private Short magic;
 
-    private byte version;
-
-    private byte updown;
+    private Short type;
 
     private String uuid;
 
@@ -21,8 +19,7 @@ public class MsgBean {
         //协议行首的计算length时用的字符编码，务必要和写到socket时的字符编码一致，不然会出现接收不完整问题。
         length = ((bytes[0] & 0xFF) << 24) | ((bytes[1] & 0xFF) << 16) | ((bytes[2] & 0xFF) << 8) | (bytes[3] & 0xFF);
         magic =  (short)(((bytes[4] & 0xFF) << 8) | (bytes[5] & 0xFF));
-        version = (byte) (bytes[6] & 0xFF);
-        updown = (byte)(bytes[7] & 0xFF);
+        type = (short)(((bytes[6] & 0xFF) << 8) | (bytes[7] & 0xFF));
         uuid = new String(Arrays.copyOfRange(bytes, 8, 40));
         body = new String(Arrays.copyOfRange(bytes, 40, bytes.length));
     }
@@ -43,20 +40,12 @@ public class MsgBean {
         this.magic = magic;
     }
 
-    public byte getVersion() {
-        return version;
+    public Short getType() {
+        return type;
     }
 
-    public void setVersion(byte version) {
-        this.version = version;
-    }
-
-    public byte getUpdown() {
-        return updown;
-    }
-
-    public void setUpdown(byte updown) {
-        this.updown = updown;
+    public void setType(Short type) {
+        this.type = type;
     }
 
     public String getUuid() {
