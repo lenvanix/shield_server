@@ -5,16 +5,20 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.heimdall.shield_server.message.MsgBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.heimdall.shield_server.utils.LogUtil;
 import java.net.SocketAddress;
 
 
 public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
 
+    private static final Logger logger = LoggerFactory.getLogger(MsgToBeanHandler.class);
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         SocketAddress socketAddress = ctx.channel().remoteAddress();
-        //LogUtil.log("客户端[IP:" + socketAddress.toString() + "]连上了服务端");
+        logger.info("客户端[IP:" + socketAddress.toString() + "]连上了服务端");
     }
 
     @Override
