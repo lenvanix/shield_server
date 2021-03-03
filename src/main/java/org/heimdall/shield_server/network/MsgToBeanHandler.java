@@ -2,6 +2,7 @@ package org.heimdall.shield_server.network;
 
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.heimdall.shield_server.message.MsgBean;
@@ -10,7 +11,13 @@ import org.slf4j.LoggerFactory;
 //import org.heimdall.shield_server.utils.LogUtil;
 import java.net.SocketAddress;
 
-
+/**
+ * 可以给ChannelHandler加上@Sharable注解
+ * 此后所有因新连接而创建的Channel都共享这个Handler
+ * 这意味着，该Handler会被任意Channel的事件触发。
+ * 因此此时Channel应该是无状态的，否则会有线程安全问题
+ */
+@ChannelHandler.Sharable
 public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(MsgToBeanHandler.class);
@@ -28,6 +35,8 @@ public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
         if(isValidMessage(bytes)){
             //channelHandlerContext.fireChannelRead(new MsgBean(bytes));
             MsgBean msgBean = new MsgBean(bytes);
+        }else{
+            logger.error("消息格式不合法，直接丢弃消息。消息长度{},魔数{}", bytes.length, (short)(((bytes[4] & 0xFF) << 8) | (bytes[5] & 0xFF)));
         }
     }
 
